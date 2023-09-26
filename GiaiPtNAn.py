@@ -1,3 +1,4 @@
+
 import tkinter as tk
 import numpy as np
 
@@ -5,7 +6,8 @@ heso=[]
 coso=[]
 def math():
     main_frame.pack_forget()
-    second_frame.pack()
+    second_frame.pack_forget()
+    third_frame.pack()
     global heso, coso
     n=int(entry1.get())
     array_heso = np.empty((n,n))
@@ -17,10 +19,8 @@ def math():
         coso_value=float(coso[i].get())
         array_coso[i,0]=coso_value
     x=np.linalg.solve(array_heso,array_coso)
-    label_ketqua=tk.Label(second_frame, text=f"Các nghiệm của hệ phương trình lần lượt là:")
-    label_ketqua.pack()
     for i in x:
-        label=tk.Label(second_frame,text=f"{i}")
+        label=tk.Label(third_frame,text=f"{i}")
         label.pack()
 def bt1():
     n=int(entry1.get())
@@ -62,6 +62,10 @@ button1.pack()
 second_frame=tk.Frame(cs)
 second_frame.pack_forget()
 
+third_frame=tk.Frame(cs)
+label_ketqua=tk.Label(third_frame, text=f"Các nghiệm của hệ phương trình lần lượt là:")
+label_ketqua.pack()
+third_frame.pack_forget()
 
 
 cs.mainloop()
