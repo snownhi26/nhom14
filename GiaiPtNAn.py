@@ -22,6 +22,13 @@ def math():
     for i in x:
         label=tk.Label(third_frame,text=f"{i}")
         label.pack()
+    label=tk.Label(third_frame,text=f"{i}")
+            label.pack()
+    except np.linalg.LinAlgError as e:
+        if np.linalg.matrix_rank(array_heso)==np.linalg.matrix_rank(np.column_stack((array_heso,array_coso))):
+            label_ketqua.config(text="Hệ có vô số nghiệm")
+        else:
+            label_ketqua.config(text="Hệ vô nghiệm")
 def bt1():
     n=int(entry1.get())
     main_frame.pack_forget()
