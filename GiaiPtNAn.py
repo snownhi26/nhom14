@@ -5,23 +5,29 @@ import numpy as np
 heso=[]
 coso=[]
 def math():
-    main_frame.pack_forget()
-    second_frame.pack_forget()
-    third_frame.pack()
-    global heso, coso
-    n=int(entry1.get())
-    array_heso = np.empty((n,n))
-    array_coso = np.empty((n,1))
-    for i in range(n*n):
-        heso_value=float(heso[i].get())
-        array_heso[i//n, i%n]=heso_value
-    for i in range(n):
-        coso_value=float(coso[i].get())
-        array_coso[i,0]=coso_value
-    x=np.linalg.solve(array_heso,array_coso)
-    for i in x:
-        label=tk.Label(third_frame,text=f"{i}")
-        label.pack()
+    try:
+        main_frame.pack_forget()
+        second_frame.pack_forget()
+        third_frame.pack()
+        global heso, coso
+        n=int(entry1.get())
+        array_heso = np.empty((n,n))
+        array_coso = np.empty((n,1))
+        for i in range(n*n):
+            heso_value=float(heso[i].get())
+            array_heso[i//n, i%n]=heso_value
+        for i in range(n):
+            coso_value=float(coso[i].get())
+            array_coso[i,0]=coso_value
+        x=np.linalg.solve(array_heso,array_coso)
+        for i in x:
+            label=tk.Label(third_frame,text=f"{i}")
+            label.pack()
+    except np.linalg.LinAlgError as e:
+        if np.linalg.matrix_rank(array_heso)==np.linalg.matrix_rank(np.column_stack((array_heso,array_coso))):
+            label_ketqua.config(text="Hệ có vô số nghiệm")
+        else:
+            label_ketqua.config(text="Hệ vô nghiệm")
 def bt1():
     n=int(entry1.get())
     main_frame.pack_forget()
